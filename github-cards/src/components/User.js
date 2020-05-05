@@ -5,7 +5,8 @@ export default function User({ userData }) {
   return (
     <div>
       <h1>{userData.name}</h1>
-      <p>{userData.avatar_url}</p>
+      <img src={userData.avatar_url} alt="profile" />
+      
       <p>{userData.bio}</p>
       
       <p>{userData.location}</p>
