@@ -47,7 +47,7 @@ export default class App extends React.Component {
     <div className="App">
         <h1>Github Users</h1>
       <User userData={this.state.userData} />
-      <Followers />
+      <Followers followers={this.state.followers} />
     </div>
   );
 }
