@@ -80,7 +80,7 @@ export default class App extends React.Component {
         onChange={(e) => this.setState({followersText: e.target.value})}
         placeholder='search for follower'
       />
-      <button onClick={this.searchFollowers}>Search Followers</button>
+      
       <div className="followers">
         
           <Followers followers={filteredFollowers} />
