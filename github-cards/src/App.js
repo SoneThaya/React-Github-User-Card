@@ -11,6 +11,7 @@ export default class App extends React.Component {
     this.state = {
       followers: [],
       userData: [],
+      followersText: '',
     }
   }
   
@@ -40,14 +41,52 @@ export default class App extends React.Component {
     console.log(this.state.user)
   }
 
-  
+  handleChanges = e => {
+    this.setState({
+      followersText: e.target.value.substr(0, 20)
+    })
+  }
+
+  searchFollowers = e => {
+    e.preventDefault()
+    axios
+      .get(`https://api.github.com/users/${this.state.followersText}`)
+      .then(res => {
+        console.log(res.data)
+        this.setState({
+          followers: this.state.followersText
+          })
+         
+        })
+      
+      .catch(err => console.log(err))
+  }
 
   render() {
+    const { followers, followersText } = this.state;
+
+    const filteredFollowers = followers.filter(follower => 
+        follower.login.toLowerCase().includes(followersText.toLocaleLowerCase())
+      )
+    
   return (
     <div className="App">
         <h1>Github Users</h1>
       <User userData={this.state.userData} />
-      <Followers followers={this.state.followers} />
+      <h4>Search Followers</h4>
+      <input
+        type="search"
+        value={this.state.followersText}
+        onChange={(e) => this.setState({followersText: e.target.value})}
+        placeholder='search for follower'
+      />
+      <button onClick={this.searchFollowers}>Search Followers</button>
+      <div className="followers">
+        
+          <Followers followers={filteredFollowers} />
+       
+      </div>
+      
     </div>
   );
 }
